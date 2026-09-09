@@ -1,62 +1,31 @@
-# thedrain
+<p align="center">
+  <img src="assets/wordmark.png" alt="DRAIN" width="460">
+</p>
 
-**How much did Claude actually do for you today?**
+<h3 align="center">See what Claude actually did for you today</h3>
 
-A local, zero-dependency CLI that reads your Claude Code transcripts and tells you what your day
-was worth — tokens, API-equivalent cost, commits, lines written, and how that compares to things
-you already have a feel for.
+<p align="center">
+  Tokens, API-equivalent cost, commits and lines written — measured against code you<br>
+  already have a feel for. Local, zero tokens spent, zero network calls.
+</p>
 
-```
-────────────────────────────────  D R A I N  ─────────────────────────────────
-  what Claude did for you today
-  07 September 2026
+<p align="center">
+  <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-4CE813?style=flat-square&labelColor=0A0C0A"></a>
+  <a href="https://github.com/Azamatfg/homebrew-tap"><img alt="Homebrew" src="https://img.shields.io/badge/brew-Azamatfg%2Ftap-4CE813?style=flat-square&labelColor=0A0C0A"></a>
+  <img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-4CE813?style=flat-square&labelColor=0A0C0A">
+  <img alt="Dependencies" src="https://img.shields.io/badge/dependencies-0-4CE813?style=flat-square&labelColor=0A0C0A">
+  <img alt="Network calls" src="https://img.shields.io/badge/network%20calls-0-4CE813?style=flat-square&labelColor=0A0C0A">
+</p>
 
-  tokens drained          877 508 082
-  at API rates           $630.91
-  model calls            5 598
-  commits                30
-  lines written          10 819
+<p align="center">
+  <img src="assets/screenshot.png" alt="drain output for a single day" width="820">
+</p>
 
-  ── where the tokens went ────────────────────────────────────────────────
-  cache reads    ████████████████████████████████████████· 859.7M  98.0%
-  cache writes   █······································    16.6M   1.9%
-  model output   ·······································     1.2M   0.1%
-  fresh input    ·······································    11.3K   0.0%
+---
 
-  caching saved $3,877.28 — without it the day would have cost $4,508.19
+## ⚡ Install
 
-  ── what this means ──────────────────────────────────────────────────────
-  If you are on a Claude subscription, you did not pay this.
-  This is what the day would cost at API rates.
-  Pro       $ 20/mo   today = 31.5 monthly payments
-  Max 5×    $100/mo   today = 6.3 monthly payments
-  Max 20×   $200/mo   today = 3.2 monthly payments
-
-  ── for scale ────────────────────────────────────────────────────────────
-  ▸ reading this aloud without sleeping — 8.3 years
-  ▸ 1.03× the first Linux kernel (0.01, 1991 — 10,239 lines)
-  ▸ 6.0% of Linux 1.0 (1994)
-  ▸ 0.0262% of the modern Linux kernel (40M lines)
-  ▸ 27% of the Doom 1993 source
-────────────────────────────────────────────────────────────────────────────
-```
-
-## Why
-
-Claude Code shows you a session cost. It does not show you a **day**, it does not show you what
-your subscription actually delivered, and it never connects tokens to the thing you care about —
-what got built.
-
-`drain` answers three questions at once:
-
-1. **What did the model do?** Tokens, calls, thinking, and the cache split most people never look at.
-2. **What would that have cost?** Priced per model at current API rates, cache writes and reads
-   charged correctly — not one flat rate for everything.
-3. **What came out of it?** Commits and lines across every git repository you touched that day.
-
-## Install
-
-**Homebrew** (macOS / Linux):
+**Homebrew** — macOS and Linux:
 
 ```bash
 brew install Azamatfg/tap/thedrain
@@ -77,28 +46,65 @@ git clone https://github.com/Azamatfg/thedrain.git
 cd thedrain && python3 drain.py
 ```
 
-Python 3.9+. No third-party dependencies.
+Python 3.9+. No third-party dependencies, ever.
 
-## Use
+## ▸ Use
 
 ```bash
-drain                       # today
+drain                        # today
 drain --date 2026-09-07      # any day
 drain --json                 # machine-readable
 drain --no-git               # skip repository scanning (faster)
 drain --no-anim              # no count-up animation
+drain --once                 # print at most once per day — for shell startup
 ```
 
-## The cache number is the point
+Add one line to `.zshrc` or `.bashrc` and the first terminal of each day greets you with yesterday:
+
+```bash
+[[ -o interactive ]] && command -v drain >/dev/null 2>&1 && drain --once
+```
+
+## 🎯 Why
+
+Claude Code shows you a session cost. It does not show you a **day**, it does not show you what
+your subscription actually delivered, and it never connects tokens to the thing you care about —
+what got built.
+
+`drain` answers three questions at once:
+
+1. **What did the model do?** Tokens, calls, thinking, and the cache split most people never look at.
+2. **What would that have cost?** Priced per model at current API rates, cache writes and reads
+   charged correctly — not one flat rate for everything.
+3. **What came out of it?** Commits and lines across every git repository you touched that day.
+
+## 🧊 The cache number is the point
+
+<img src="assets/gallery-2.png" alt="98% of it was cache" width="820">
 
 Almost everyone reads "877 million tokens" and assumes a catastrophic bill. 98% of that volume is
 **cache reads**, billed at 0.1× the input rate. The single most useful line `drain` prints is how
-much prompt caching saved you — on the day above, $3,877.
+much prompt caching saved you — on the day above, **$3,877**.
 
-If your cache-read share is low, that is a finding: something in your prompt prefix is changing
-between requests and silently invalidating the cache.
+If your cache-read share is low, that is a finding, not a curiosity: something in your prompt
+prefix is changing between requests — a timestamp, an unsorted dict, a tool list that reorders —
+and silently invalidating everything after it. **A low cache share is a bug report you have not
+read yet.**
 
-## Pricing
+## 🏁 Race the people who built the tools
+
+<img src="assets/gallery-3.png" alt="for scale" width="820">
+
+A number on its own motivates nobody. 877 million of anything is just a big number. So `drain`
+compares your day to code you already have a feel for, and tells you how far you are from the
+next one.
+
+The roster lives in [`legends.json`](legends.json) — **send a pull request with whoever you want
+to race.** One rule: the line count has to be sourceable. Current entries include the first Linux
+kernel (10,239 lines), Linux 1.0 (176,250), the Apollo 11 guidance computer (~145,000) and git's
+initial commit (1,244).
+
+## 💰 Pricing
 
 Rates are per 1M tokens, current as of September 2026. Cache writes bill at 1.25× input for the
 5-minute TTL and 2× for the 1-hour TTL; cache reads at 0.1× input (0.025× on Fable 5.1).
@@ -113,20 +119,33 @@ Rates are per 1M tokens, current as of September 2026. Cache writes bill at 1.25
 
 Unknown models fall back to Opus-tier pricing and are shown by name, so you can see what was assumed.
 
-## Privacy
+## 🔒 Privacy
 
-`drain` reads `~/.claude/projects/**/*.jsonl` and your local git history. It makes no network
-requests of any kind. Nothing leaves the machine. Read `engine.py` — it is about 120 lines.
+`drain` reads `~/.claude/projects/**/*.jsonl` and your local git history. It makes **no network
+requests of any kind**. There is no API key, no account, and no telemetry. Nothing leaves the
+machine.
 
-## Accuracy, honestly
+Asking a model how much you spent would be like calling the bank to read your own statement —
+so `drain` spends zero tokens telling you how many you spent. Read [`engine.py`](engine.py);
+it is about 110 lines.
+
+## 📐 Accuracy, honestly
 
 - **Subscription users pay a flat fee.** The dollar figure is API-equivalent value, not what you
   were charged. The tool says so on every run.
 - **Line counts come from git** and are attributed by author, so an agent-written commit that you
   authored counts as yours — which is the point.
 - **Deduplicated by message id**, so resumed and branched sessions are not double-counted.
-- Reference line counts: Linux 0.01 = 10,239; Linux 1.0 = 176,250; Linux 6.14 rc1 = 40,063,856.
+- **Days are pinned to local midnight.** `git log --since=2026-09-09` does *not* mean "since
+  midnight" — git fills unspecified fields from the current clock, so at 16:24 that flag silently
+  means "since 16:24 today". Both ends of the day are pinned explicitly.
+
+## 🤝 Contributing
+
+The most useful contribution is a new entry in [`legends.json`](legends.json): a codebase worth
+racing, with a line count anyone can verify. Pricing corrections are the second most useful —
+that table is the part most likely to drift.
 
 ## License
 
-MIT
+MIT © [Azamat Bigali](https://github.com/Azamatfg)
