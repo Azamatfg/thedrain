@@ -75,7 +75,11 @@ def scan_tokens(day: date, root: Path | None = None) -> dict:
 
 def scan_git(day: date, home: Path | None = None) -> dict:
     home = home or Path.home()
-    since = day.isoformat()
+    # git parses a bare date approximately and fills unspecified fields from the
+    # current clock, so "--since=2026-09-09" at 16:24 silently means 16:24 that
+    # day. Pin both ends of the day explicitly.
+    since = f"{day.isoformat()} 00:00:00"
+    until = f"{day.isoformat()} 23:59:59"
     out = subprocess.run(["find", str(home), "-maxdepth", "4", "-name", ".git", "-type", "d",
                           "-not", "-path", "*/node_modules/*", "-not", "-path", "*/Library/*"],
                          capture_output=True, text=True, timeout=90)
@@ -84,6 +88,7 @@ def scan_git(day: date, home: Path | None = None) -> dict:
         repo = str(Path(g).parent)
         try:
             log = subprocess.run(["git","-C",repo,"log","--all","--since",since,
+                                  "--until",until,
                                   "--author=azamat","-i","--pretty=tformat:%H","--numstat"],
                                  capture_output=True, text=True, timeout=25)
         except Exception: continue
