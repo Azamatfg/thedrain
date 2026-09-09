@@ -56,19 +56,28 @@ what got built.
 
 ## Install
 
-Python 3.9+. No dependencies.
+**Homebrew** (macOS / Linux):
 
 ```bash
-git clone https://github.com/YOURNAME/thedrain.git
-cd thedrain
-python3 drain.py
+brew install Azamatfg/tap/thedrain
 ```
 
-Optional — run it from anywhere:
+**One line, no Homebrew:**
 
 ```bash
-echo 'alias drain="python3 ~/burn/drain.py"' >> ~/.zshrc && source ~/.zshrc
+curl -fsSL https://raw.githubusercontent.com/Azamatfg/thedrain/main/install.sh | bash
 ```
+
+Installs to `~/.thedrain`, puts a `drain` command in `~/.local/bin`, and updates itself on re-run.
+
+**From source:**
+
+```bash
+git clone https://github.com/Azamatfg/thedrain.git
+cd thedrain && python3 drain.py
+```
+
+Python 3.9+. No third-party dependencies.
 
 ## Use
 
