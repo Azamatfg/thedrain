@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 260">
+ <defs>
+  <linearGradient id="slime" x1="0" y1="0" x2="0" y2="1">
+   <stop offset="0%"  stop-color="#C8FF4A"/>
+   <stop offset="38%" stop-color="#6BFF14"/>
+   <stop offset="100%" stop-color="#2FA806"/>
+  </linearGradient>
+  <filter id="glow" x="-30%" y="-30%" width="160%" height="180%">
+   <feGaussianBlur stdDeviation="11"/>
+  </filter>
+  <filter id="goo">
+   <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b"/>
+   <feColorMatrix in="b" mode="matrix"
+     values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="g"/>
+   <feBlend in="SourceGraphic" in2="g"/>
+  </filter>
+ </defs>
+
+ <rect width="680" height="260" fill="#060806"/>
+ <g id="letters">
+  <!-- D -->
+  <path d="M40 44 h60 q66 0 66 76 t-66 76 h-60z M84 78 v84 h14 q30 0 30-42 t-30-42z"
+        fill-rule="evenodd"/>
+  <path d="M46 190 q9 0 9 13 v30 q0 15 -9 15 t-9 -15 v-30 q0 -13 9 -13z"/>
+  <circle cx="46" cy="250" r="8.5"/>
+  <path d="M132 188 q7 0 7 10 v17 q0 11 -7 11 t-7 -11 v-17 q0 -10 7 -10z"/>
+  <circle cx="132" cy="228" r="6.5"/>
+
+  <!-- R -->
+  <path d="M188 44 h62 q56 0 56 50 q0 30 -24 42 l30 60 h-46 l-25 -52 h-11 v52 h-42z
+           M230 78 v34 h16 q18 0 18 -17 t-18 -17z" fill-rule="evenodd"/>
+  <path d="M196 190 q8 0 8 11 v22 q0 13 -8 13 t-8 -13 v-22 q0 -11 8 -11z"/>
+  <circle cx="196" cy="238" r="7"/>
+  <path d="M292 190 q6 0 6 9 v14 q0 10 -6 10 t-6 -10 v-14 q0 -9 6 -9z"/>
+
+  <!-- A -->
+  <path d="M356 44 h52 l50 152 h-44 l-8 -28 h-48 l-8 28 h-44z M375 136 h30 l-15 -50z"
+        fill-rule="evenodd"/>
+  <path d="M366 190 q7 0 7 10 v25 q0 12 -7 12 t-7 -12 v-25 q0 -10 7 -10z"/>
+  <circle cx="366" cy="240" r="7"/>
+  <path d="M444 188 q6 0 6 9 v12 q0 9 -6 9 t-6 -9 v-12 q0 -9 6 -9z"/>
+
+  <!-- I -->
+  <path d="M474 44 h42 v152 h-42z"/>
+  <path d="M495 190 q8 0 8 11 v27 q0 14 -8 14 t-8 -14 v-27 q0 -11 8 -11z"/>
+  <circle cx="495" cy="244" r="7.5"/>
+
+  <!-- N -->
+  <path d="M536 44 h40 l44 76 v-76 h42 v152 h-40 l-44 -76 v76 h-42z"/>
+  <path d="M548 190 q7 0 7 10 v18 q0 11 -7 11 t-7 -11 v-18 q0 -10 7 -10z"/>
+  <circle cx="548" cy="232" r="6.5"/>
+  <path d="M648 190 q8 0 8 12 v24 q0 13 -8 13 t-8 -13 v-24 q0 -12 8 -12z"/>
+  <circle cx="648" cy="242" r="7.5"/>
+ </g>
+
+ <use href="#letters" fill="#6BFF14" filter="url(#glow)" opacity=".55"/>
+ <use href="#letters" fill="url(#slime)" filter="url(#goo)"/>
+</svg>

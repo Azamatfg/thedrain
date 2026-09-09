@@ -19,8 +19,8 @@ BORDER = (44, 52, 42)
 FG     = (212, 220, 208)
 DIM    = (86, 98, 82)
 GREY   = (136, 148, 132)
-ACID   = (108, 255, 26)
-LIME   = (190, 255, 80)
+ACID   = (99, 255, 16)
+LIME   = (180, 255, 60)
 ORANGE = (255, 154, 40)
 RED    = (255, 106, 96)
 CYAN   = (94, 226, 214)
@@ -53,14 +53,26 @@ def section(lines, start_marker, stop_marker=None):
     return [l for l in out]
 
 
-def canvas(headline: str, sub: str = ""):
+LOGO = os.path.join(OUT, "wordmark.png")
+
+def canvas(headline: str, sub: str = "", logo=True):
     img = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(img)
-    head = ImageFont.truetype(FONT, 40)
+    top = 58
+    if logo and os.path.exists(LOGO):
+        lg = Image.open(LOGO).convert("RGB")
+        bb = lg.point(lambda v: 0 if v < 14 else 255).convert("L").getbbox()
+        if bb:
+            lg = lg.crop(bb)
+        h = 54
+        lg = lg.resize((int(lg.width * h / lg.height), h), Image.LANCZOS)
+        img.paste(lg, (62, 44))
+        top = 128
+    head = ImageFont.truetype(FONT, 38)
     subf = ImageFont.truetype(FONT, 18)
-    d.text((64, 58), headline, font=head, fill=WHITE)
+    d.text((64, top), headline, font=head, fill=WHITE)
     if sub:
-        d.text((64, 112), sub, font=subf, fill=GREY)
+        d.text((64, top + 52), sub, font=subf, fill=GREY)
     return img, d
 
 
@@ -96,9 +108,9 @@ def main():
     img, d = canvas("98% of it was cache.",
                     "The bill everyone fears is mostly reads at a tenth of the input rate.")
     body = section(full, "where the tokens went")
-    terminal(d, body, 64, 178, W - 128, 380, colour=c2)
+    terminal(d, body, 64, 246, W - 128, 330, colour=c2)
     big = ImageFont.truetype(FONT, 54)
-    d.text((64, 606), "$3,877.28 saved in one day", font=big, fill=ACID)
+    d.text((64, 612), "$3,877.28 saved in one day", font=big, fill=ACID)
     d.text((64, 678), "If your cache-read share is low, something in your prompt prefix is changing.",
            font=ImageFont.truetype(FONT, 17), fill=GREY)
     img.save(f"{OUT}/gallery-2.png")
@@ -112,12 +124,12 @@ def main():
     img, d = canvas("Race the people who built the tools.",
                     "Your day, measured against code you already have a feel for.")
     body = section(full, "for scale")
-    terminal(d, body, 64, 178, W - 128, 300, size=18, colour=c3)
-    d.text((64, 528), "The first Linux kernel was 10,239 lines.",
+    terminal(d, body, 64, 246, W - 128, 264, size=17, colour=c3)
+    d.text((64, 546), "The first Linux kernel was 10,239 lines.",
            font=ImageFont.truetype(FONT, 34), fill=WHITE)
-    d.text((64, 578), "A normal day with an agent now passes what Torvalds released in 1991.",
+    d.text((64, 596), "A normal day with an agent now passes what Torvalds released in 1991.",
            font=ImageFont.truetype(FONT, 20), fill=GREY)
-    d.text((64, 648), "legends.json — send a pull request with the one you want to race.",
+    d.text((64, 664), "legends.json — send a pull request with the one you want to race.",
            font=ImageFont.truetype(FONT, 17), fill=ACID)
     img.save(f"{OUT}/gallery-3.png")
 
@@ -137,7 +149,7 @@ def main():
     def c4(l):
         if l.strip().startswith("$"): return ACID
         return GREY
-    terminal(d, install, 64, 178, W - 128, 290, size=19, colour=c4)
+    terminal(d, install, 64, 246, W - 128, 262, size=18, colour=c4)
     facts = [
         ("reads", "~/.claude transcripts Claude Code already writes, and your git log"),
         ("sends", "nothing — there is not a single network call in the source"),
@@ -145,7 +157,7 @@ def main():
         ("", "read your own statement"),
         ("needs", "Python 3.9+, no third-party dependencies"),
     ]
-    y = 512
+    y = 546
     kf = ImageFont.truetype(FONT, 19)
     vf = ImageFont.truetype(FONT, 19)
     for k, v in facts:

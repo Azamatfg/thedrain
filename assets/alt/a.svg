@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+ <defs>
+  <linearGradient id="s" x1="0" y1="0" x2="0" y2="1">
+   <stop offset="0%" stop-color="#DBFF5C"/><stop offset="45%" stop-color="#6BFF1A"/><stop offset="100%" stop-color="#31C209"/>
+  </linearGradient>
+  <radialGradient id="g" cx="50%" cy="40%" r="60%">
+   <stop offset="0%" stop-color="#8CFF3A" stop-opacity=".40"/><stop offset="100%" stop-color="#000" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="b" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="9"/></filter>
+ </defs>
+ <rect width="240" height="240" rx="52" fill="#050705"/>
+ <rect width="240" height="240" rx="52" fill="url(#g)"/>
+ <g filter="url(#b)" opacity=".55"><path d="M62 44h58q52 0 52 58t-52 58H62z" fill="#6BFF1A"/></g>
+ <path d="M62 44h56q54 0 54 58t-54 58H62z M104 74v56h14q22 0 22-28t-22-28z" fill="url(#s)" fill-rule="evenodd"/>
+ <g fill="url(#s)">
+  <path d="M74 158q9 0 9 12v26q0 14-9 14t-9-14v-26q0-12 9-12z"/><circle cx="74" cy="214" r="8"/>
+  <path d="M120 162q7 0 7 10v18q0 11-7 11t-7-11v-18q0-10 7-10z"/><circle cx="120" cy="204" r="6.5"/>
+  <path d="M158 156q6 0 6 9v13q0 9-6 9t-6-9v-13q0-9 6-9z"/><circle cx="158" cy="190" r="5"/>
+ </g>
+</svg>

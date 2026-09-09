@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+ <defs>
+  <linearGradient id="sl" x1="0" y1="0" x2="0" y2="1">
+   <stop offset="0%" stop-color="#CDFF52"/><stop offset="38%" stop-color="#6BFF14"/><stop offset="100%" stop-color="#2FA806"/>
+  </linearGradient>
+  <radialGradient id="amb" cx="50%" cy="42%" r="60%">
+   <stop offset="0%" stop-color="#7CFF2A" stop-opacity=".38"/><stop offset="100%" stop-color="#000" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="gl" x="-35%" y="-35%" width="170%" height="180%"><feGaussianBlur stdDeviation="10"/></filter>
+  <filter id="goo2">
+   <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="b"/>
+   <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="g"/>
+   <feBlend in="SourceGraphic" in2="g"/>
+  </filter>
+ </defs>
+ <rect width="240" height="240" rx="52" fill="#060806"/>
+ <rect width="240" height="240" rx="52" fill="url(#amb)"/>
+ <g id="dl">
+  <path d="M58 40 h62 q70 0 70 74 t-70 74 h-62z M104 76 v72 h14 q28 0 28 -36 t-28 -36z" fill-rule="evenodd"/>
+  <path d="M66 182 q10 0 10 14 v28 q0 16 -10 16 t-10 -16 v-28 q0 -14 10 -14z"/>
+  <circle cx="66" cy="240" r="9.5"/>
+  <path d="M116 184 q8 0 8 11 v18 q0 12 -8 12 t-8 -12 v-18 q0 -11 8 -11z"/>
+  <circle cx="116" cy="228" r="7.5"/>
+  <path d="M166 180 q7 0 7 10 v13 q0 10 -7 10 t-7 -10 v-13 q0 -10 7 -10z"/>
+  <circle cx="166" cy="214" r="6"/>
+ </g>
+ <use href="#dl" fill="#6BFF14" filter="url(#gl)" opacity=".55"/>
+ <use href="#dl" fill="url(#sl)" filter="url(#goo2)"/>
+</svg>

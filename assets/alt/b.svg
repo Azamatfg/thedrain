@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+ <defs>
+  <linearGradient id="s2" x1="0" y1="0" x2="1" y2="1">
+   <stop offset="0%" stop-color="#E4FF6B"/><stop offset="55%" stop-color="#5CFF12"/><stop offset="100%" stop-color="#2AA806"/>
+  </linearGradient>
+  <radialGradient id="g2" cx="50%" cy="46%" r="58%">
+   <stop offset="0%" stop-color="#9BFF48" stop-opacity=".45"/><stop offset="100%" stop-color="#000" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="b2" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6"/></filter>
+ </defs>
+ <rect width="240" height="240" rx="52" fill="#040604"/>
+ <rect width="240" height="240" rx="52" fill="url(#g2)"/>
+ <g filter="url(#b2)" opacity=".5">
+  <path d="M120 40a80 80 0 1 1-.1 0" fill="none" stroke="#5CFF12" stroke-width="14"/>
+ </g>
+ <g fill="none" stroke="url(#s2)" stroke-linecap="round">
+  <path d="M120 36a84 84 0 1 1-59 143" stroke-width="15"/>
+  <path d="M120 66a54 54 0 1 1-38 92" stroke-width="12"/>
+  <path d="M120 94a26 26 0 1 1-18 44" stroke-width="9"/>
+ </g>
+ <circle cx="120" cy="120" r="8" fill="#DFFF8A"/>
+</svg>

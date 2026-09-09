@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+ <defs>
+  <linearGradient id="s3" x1="0" y1="0" x2="0" y2="1">
+   <stop offset="0%" stop-color="#EAFF8F"/><stop offset="40%" stop-color="#76FF22"/><stop offset="100%" stop-color="#249B05"/>
+  </linearGradient>
+  <radialGradient id="hole" cx="50%" cy="50%" r="50%">
+   <stop offset="0%" stop-color="#000"/><stop offset="70%" stop-color="#06230A"/><stop offset="100%" stop-color="#0E3D0C"/>
+  </radialGradient>
+ </defs>
+ <rect width="240" height="240" rx="52" fill="#050705"/>
+ <ellipse cx="120" cy="110" rx="86" ry="60" fill="url(#s3)"/>
+ <ellipse cx="120" cy="112" rx="60" ry="40" fill="url(#hole)"/>
+ <path d="M34 118q10 40 86 40t86-40q6 22-8 40-30 26-78 26t-78-26q-14-18-8-40z" fill="url(#s3)"/>
+ <g fill="url(#s3)">
+  <path d="M70 186q9 0 9 12v22q0 13-9 13t-9-13v-22q0-12 9-12z"/><circle cx="70" cy="228" r="7.5"/>
+  <path d="M170 184q7 0 7 10v16q0 11-7 11t-7-11v-16q0-10 7-10z"/><circle cx="170" cy="218" r="6"/>
+  <path d="M120 196q6 0 6 9v12q0 9-6 9t-6-9v-12q0-9 6-9z" opacity=".9"/>
+ </g>
+</svg>
