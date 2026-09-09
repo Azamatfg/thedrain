@@ -31,60 +31,35 @@ class C:
 
 
 # ─────────────────────────────────────────────────────────── legends
-# Только числа, которые можно защитить. «≈» — широко цитируемая оценка.
+# Only numbers that can be defended. "~" marks a widely cited estimate.
 
-LEGENDS = [
- # (строк, автор, проект, год, точное?)
- (1_244,      "Linus Torvalds",        ("первого коммита git",      "the first commit of git"),      2005, True),
- (10_239,     "Linus Torvalds",        ("ядра Linux 0.01",          "the Linux 0.01 kernel"),        1991, True),
- (39_000,     "John Carmack",          ("движка Doom",              "the Doom engine"),              1993, False),
- (145_000,    "команда Маргарет Хэмилтон", ("бортового компьютера Apollo 11", "the Apollo 11 flight computer"), 1969, True),
- (156_000,    "D. Richard Hipp",       ("SQLite",                   "SQLite"),                       2000, False),
- (176_250,    "Linus Torvalds",        ("ядра Linux 1.0",           "the Linux 1.0 kernel"),         1994, True),
- (200_000,    "Salvatore Sanfilippo",  ("Redis",                    "Redis"),                        2009, False),
- (1_400_000,  "команда PostgreSQL",    ("PostgreSQL",               "PostgreSQL"),                   1996, False),
- (5_000_000,  "команда Kubernetes",    ("Kubernetes",               "Kubernetes"),                   2014, False),
- (40_063_856, "тысячи людей за 34 года", ("современного ядра Linux", "the modern Linux kernel"),      2025, True),
-]
+def _load_legends():
+    """Legends live in legends.json so anyone can add one with a pull request."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "legends.json")
+    try:
+        with open(path, encoding="utf8") as f:
+            raw = json.load(f)["legends"]
+    except Exception:
+        return [(10_239, "Linus Torvalds", "the Linux 0.01 kernel", 1991, True)]
+    return sorted(((l["lines"], l["who"], l["what"], l["year"], l.get("exact", False))
+                   for l in raw), key=lambda x: x[0])
+
+LEGENDS = _load_legends()
 
 def pick_legend(lines: int, day):
-    """Легенда, ближайшая по масштабу. Меняется день ото дня среди подходящих."""
+    """Closest legend by scale; rotates day to day among the near matches."""
     if lines <= 0: return None
     scored = sorted(LEGENDS, key=lambda x: abs((lines / x[0]) - 0.6))
     pool = scored[:3]
     return pool[day.toordinal() % len(pool)]
 
+def next_target(lines: int):
+    """The next legend you have not passed yet — the thing to beat tomorrow."""
+    ahead = [l for l in LEGENDS if l[0] > lines]
+    return ahead[0] if ahead else None
+
 # ─────────────────────────────────────────────────────────── i18n
 
-RU = {
- "sub": "сколько Claude отработал за вас сегодня",
- "tokens": "токенов сожжено", "cost": "по тарифам API это", "calls": "вызовов к модели",
- "commits": "коммитов", "lines": "строк написано",
- "where": "куда ушли токены", "cache_r": "чтение кэша", "cache_w": "запись в кэш",
- "out": "вывод модели", "inp": "свежий ввод",
- "think": "из вывода {a} токенов — размышления ({p}%)",
- "saved": "кэш сэкономил ${s}", "saved2": " — без него день стоил бы ${t}",
- "means": "что это значит",
- "means1": "Если вы на подписке Claude — вы не платили эти деньги.",
- "means2": "Столько стоил бы этот день, если считать по тарифам API.",
- "permo": "/мес", "payments": "сегодняшний день = {d} месячных платежей",
- "models": "по моделям", "outp": "вывода", "where_w": "где писалось", "cmts": "коммитов",
- "scale": "для масштаба",
- "aloud_y": "читать это вслух без сна — {v} года", "aloud_d": "читать это вслух без сна — {v} суток",
- "aloud_h": "читать это вслух — {v} часа",
- "lk_over": "{v}× первого ядра Linux (0.01, 1991 — 10 239 строк)",
- "lk_under": "{v}% первого ядра Linux (0.01, 1991)",
- "lk10": "{v}% ядра Linux 1.0 (1994)",
- "lknow": "{v}% современного ядра Linux (40 млн строк)",
- "day_max": "один день = {v} месяца Claude Max 20× по цене подписки",
- "day_pro": "один день = {v} месяца Claude Pro по цене подписки",
- "rate": "{c} обращений к модели — примерно {r} в минуту за восьмичасовой день",
- "foot": "burn · читает только ~/.claude на этой машине. Ничего не отправляет.",
- "doom": "исходников Doom 1993",
- "leg_over": "сегодня вы написали {v}× {what} — то, что {who} сделал{y}",
- "leg_under": "сегодня вы написали {v}% {what} — того, что {who} сделал{y}",
- "leg_year": " в {y} году", "approx": "≈",
-}
 EN = {
  "sub": "what Claude did for you today",
  "tokens": "tokens burned", "cost": "at API rates", "calls": "model calls",
@@ -113,7 +88,8 @@ EN = {
  "doom": "of the Doom 1993 source",
  "leg_over": "today you wrote {v}× {what} — what {who} built{y}",
  "leg_under": "today you wrote {v}% of {what} — what {who} built{y}",
- "leg_year": " in {y}", "approx": "≈",
+ "leg_year": " in {y}", "approx": "~",
+ "next": "{gap} lines to go before you pass {what} — {who}",
 }
 L = EN
 
@@ -124,7 +100,7 @@ def w() -> int:
     return min(shutil.get_terminal_size((80, 24)).columns, 76)
 
 def num(n: float) -> str:
-    return f"{int(n):,}".replace(",", " ")
+    return f"{int(n):,}"
 
 def human(n: float) -> str:
     for lim, suf in ((1e9, "B"), (1e6, "M"), (1e3, "K")):
@@ -151,12 +127,12 @@ def count_up(label: str, target: float, fmt, colour: str, steps=22, delay=0.022,
 # ─────────────────────────────────────────────────────────── analogies
 
 def analogies(tokens: float, lines: int, cost: float, calls: int, day=None) -> list[str]:
-    """Одна аналогия на измерение, подобранная под порядок величины."""
+    """One analogy per dimension, chosen to match the order of magnitude."""
     out = []
 
-    # ── объём: чтение вслух ощущается лучше, чем «N книг»
+    # volume: reading aloud lands better than "N books"
     words = tokens * 0.75
-    minutes = words / 150            # средний темп чтения вслух
+    minutes = words / 150            # average reading-aloud pace
     if minutes >= 60 * 24 * 365:
         out.append(L["aloud_y"].format(v=f"{minutes/(60*24*365):.1f}"))
     elif minutes >= 60 * 24:
@@ -164,30 +140,34 @@ def analogies(tokens: float, lines: int, cost: float, calls: int, day=None) -> l
     elif minutes >= 60:
         out.append(L["aloud_h"].format(v=f"{minutes/60:.1f}"))
 
-    # ── код: легенда дня + якорь на ядре Linux
+    # code: legend of the day + a Linux anchor
     if lines > 0:
         leg = pick_legend(lines, day)
         if leg:
             n, who, what, year, exact = leg
-            label = what[0] if L is RU else what[1]
+            label = what
             if not exact: label = L["approx"] + " " + label
             ratio = lines / n
             key = "leg_over" if ratio >= 1 else "leg_under"
             v = f"{ratio:.2f}" if ratio >= 1 else f"{ratio*100:.1f}"
             out.append(L[key].format(v=v, what=label, who=who,
                                      y=L["leg_year"].format(y=year)))
+        nxt = next_target(lines)
+        if nxt:
+            n2, who2, what2, year2, _e2 = nxt
+            out.append(L["next"].format(gap=f"{n2 - lines:,}", what=what2, who=who2))
         LNOW = 40_063_856
         out.append(L["lknow"].format(v=f"{lines/LNOW*100:.4f}"))
 
-    # ── деньги: во что это превращается
+    # money: what it turns into
     if cost >= 200:
         out.append(L["day_max"].format(v=f"{cost/200:.1f}"))
     elif cost >= 20:
         out.append(L["day_pro"].format(v=f"{cost/20:.1f}"))
 
-    # ── темп
+    # pace
     if calls > 100:
-        out.append(L["rate"].format(c=f"{calls:,}".replace(",", " "), r=f"{calls/(8*60):.1f}"))
+        out.append(L["rate"].format(c=f"{calls:,}", r=f"{calls/(8*60):.1f}"))
 
     return out
 
@@ -196,6 +176,16 @@ def analogies(tokens: float, lines: int, cost: float, calls: int, day=None) -> l
 
 def render(day: date, tok: dict, git: dict, anim=True):
     t = tok["totals"]; W = w()
+    if tok.get("missing"):
+        print(f"\n  {C.YEL}No Claude Code transcripts found.{C.R}")
+        print(f"  {C.GRY}Looked in: {tok['missing']}{C.R}")
+        print(f"  {C.GRY}burn reads the logs Claude Code writes locally. Run Claude Code once,{C.R}")
+        print(f"  {C.GRY}then try again. Nothing is downloaded and no account is needed.{C.R}\n")
+        return
+    if not t or t.get("total_tokens", 0) <= 0:
+        print(f"\n  {C.GRY}Nothing recorded for {day.isoformat()}.{C.R}")
+        print(f"  {C.GRY}Try another day:  burn --date YYYY-MM-DD{C.R}\n")
+        return
     cost = t.get("cost", 0.0)
     total = t.get("total_tokens", 0.0)
     lines = git["added"]
@@ -287,15 +277,12 @@ def render(day: date, tok: dict, git: dict, anim=True):
 
 def main():
     ap = argparse.ArgumentParser(description="what your day with Claude Code cost")
-    ap.add_argument("--date", help="YYYY-MM-DD (по умолчанию сегодня)")
-    ap.add_argument("--json", action="store_true", help="машинный вывод")
+    ap.add_argument("--date", help="YYYY-MM-DD (default: today)")
+    ap.add_argument("--json", action="store_true", help="machine-readable output")
     ap.add_argument("--no-anim", action="store_true")
     ap.add_argument("--no-git", action="store_true", help="skip repository scanning")
-    ap.add_argument("--ru", action="store_true", help="русский вывод")
     a = ap.parse_args()
 
-    global L
-    if a.ru or (not a.json and os.environ.get("LANG","").startswith("ru")): L = RU
     day = datetime.strptime(a.date, "%Y-%m-%d").date() if a.date else date.today()
     if not sys.stdout.isatty() or os.environ.get("NO_COLOR"):
         C.off()

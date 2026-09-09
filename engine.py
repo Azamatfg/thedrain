@@ -26,6 +26,8 @@ def price_for(model: str):
 
 def scan_tokens(day: date, root: Path | None = None) -> dict:
     root = root or Path.home() / ".claude" / "projects"
+    if not root.exists():
+        return {"totals": {}, "by_model": {}, "missing": str(root)}
     tot = defaultdict(float)
     by_model = defaultdict(lambda: defaultdict(float))
     seen = set()

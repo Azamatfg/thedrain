@@ -1,0 +1,25 @@
+{
+  "_comment": "Add a legend via pull request. Keep 'exact': true only when the number is documented and sourced. Sources belong in 'source'.",
+  "legends": [
+    {"lines": 1244, "who": "Linus Torvalds", "what": "the first commit of git", "year": 2005, "exact": true,
+     "source": "atlassian.com — 1,244 lines across 10 files"},
+    {"lines": 10239, "who": "Linus Torvalds", "what": "the Linux 0.01 kernel", "year": 1991, "exact": true,
+     "source": "Linux Foundation / kernel history"},
+    {"lines": 39000, "who": "John Carmack", "what": "the Doom engine", "year": 1993, "exact": false,
+     "source": "widely cited, linuxdoom-1.10"},
+    {"lines": 145000, "who": "Margaret Hamilton's team", "what": "the Apollo 11 flight computer", "year": 1969, "exact": true,
+     "source": "AGC source, NASA / chrislgarry/Apollo-11"},
+    {"lines": 156000, "who": "D. Richard Hipp", "what": "SQLite", "year": 2000, "exact": false,
+     "source": "sqlite.org, core amalgamation"},
+    {"lines": 176250, "who": "Linus Torvalds", "what": "the Linux 1.0 kernel", "year": 1994, "exact": true,
+     "source": "kernel version history"},
+    {"lines": 200000, "who": "Salvatore Sanfilippo", "what": "Redis", "year": 2009, "exact": false,
+     "source": "redis/redis"},
+    {"lines": 1400000, "who": "the PostgreSQL team", "what": "PostgreSQL", "year": 1996, "exact": false,
+     "source": "postgres/postgres"},
+    {"lines": 5000000, "who": "the Kubernetes team", "what": "Kubernetes", "year": 2014, "exact": false,
+     "source": "kubernetes/kubernetes"},
+    {"lines": 40063856, "who": "thousands of people over 34 years", "what": "the modern Linux kernel", "year": 2025, "exact": true,
+     "source": "Linux 6.14 rc1, January 2025 — 40,063,856 lines"}
+  ]
+}
