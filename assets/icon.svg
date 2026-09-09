@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="44%" r="52%">
+      <stop offset="0%"   stop-color="#B6FF3D" stop-opacity="0.55"/>
+      <stop offset="45%"  stop-color="#4CE813" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#4CE813" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="throat" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#000000"/>
+      <stop offset="55%"  stop-color="#0B2A05"/>
+      <stop offset="100%" stop-color="#1B4A08"/>
+    </radialGradient>
+    <linearGradient id="slime" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#D9FF57"/>
+      <stop offset="42%"  stop-color="#6BFF1A"/>
+      <stop offset="100%" stop-color="#2FBD08"/>
+    </linearGradient>
+    <filter id="soft" x="-45%" y="-45%" width="190%" height="190%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <filter id="tight" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+  </defs>
+
+  <!-- ground -->
+  <rect width="240" height="240" rx="52" fill="#050705"/>
+  <rect width="240" height="240" rx="52" fill="url(#glow)"/>
+
+  <!-- outer glow behind the ring -->
+  <circle cx="120" cy="104" r="70" fill="#4CE813" opacity="0.30" filter="url(#soft)"/>
+
+  <!-- drain rings, brightest outside, dark throat inside -->
+  <circle cx="120" cy="104" r="66" fill="none" stroke="url(#slime)" stroke-width="11"/>
+  <circle cx="120" cy="104" r="50" fill="none" stroke="#7CFF2A" stroke-width="7" opacity="0.92"/>
+  <circle cx="120" cy="104" r="36" fill="none" stroke="#A6FF4D" stroke-width="5" opacity="0.75"/>
+  <circle cx="120" cy="104" r="24" fill="url(#throat)"/>
+  <circle cx="120" cy="104" r="24" fill="none" stroke="#C8FF6B" stroke-width="3" opacity="0.9"/>
+
+  <!-- grate bars across the throat -->
+  <g stroke="#8CFF3A" stroke-width="4" stroke-linecap="round" opacity="0.95">
+    <line x1="103" y1="96"  x2="137" y2="96"/>
+    <line x1="100" y1="104" x2="140" y2="104"/>
+    <line x1="103" y1="112" x2="137" y2="112"/>
+  </g>
+
+  <!-- slime lip: the drips grow out of this, so nothing floats -->
+  <path d="M60 150 q22 22 60 22 t60 -22 q4 14 -6 24 q-24 16 -54 16 t-54 -16 q-10 -10 -6 -24z"
+        fill="url(#slime)"/>
+
+  <!-- slime drips falling out of the ring -->
+  <g fill="url(#slime)">
+    <path d="M76 158 q8 0 8 11 v24 q0 13 -8 13 t-8 -13 v-24 q0 -11 8 -11z"/>
+    <circle cx="76" cy="211" r="7"/>
+
+    <path d="M120 168 q10 0 10 13 v33 q0 15 -10 15 t-10 -15 v-33 q0 -13 10 -13z"/>
+    <circle cx="120" cy="230" r="8"/>
+
+    <path d="M162 156 q7 0 7 10 v18 q0 12 -7 12 t-7 -12 v-18 q0 -10 7 -10z"/>
+    <circle cx="162" cy="202" r="6"/>
+
+    <path d="M97 164 q5.5 0 5.5 8 v12 q0 9 -5.5 9 t-5.5 -9 v-12 q0 -8 5.5 -8z" opacity="0.9"/>
+    <path d="M142 162 q5.5 0 5.5 8 v15 q0 9 -5.5 9 t-5.5 -9 v-15 q0 -8 5.5 -8z" opacity="0.9"/>
+  </g>
+
+  <!-- highlight so it reads as wet -->
+  <ellipse cx="99" cy="72" rx="20" ry="9" fill="#EAFFB0" opacity="0.35" filter="url(#tight)"/>
+</svg>

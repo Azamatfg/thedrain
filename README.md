@@ -1,4 +1,4 @@
-# burn
+# thedrain
 
 **How much did Claude actually do for you today?**
 
@@ -7,11 +7,11 @@ was worth — tokens, API-equivalent cost, commits, lines written, and how that 
 you already have a feel for.
 
 ```
-────────────────────────────────  B U R N  ─────────────────────────────────
+────────────────────────────────  D R A I N  ─────────────────────────────────
   what Claude did for you today
   07 September 2026
 
-  tokens burned          877 508 082
+  tokens drained          877 508 082
   at API rates           $630.91
   model calls            5 598
   commits                30
@@ -47,7 +47,7 @@ Claude Code shows you a session cost. It does not show you a **day**, it does no
 your subscription actually delivered, and it never connects tokens to the thing you care about —
 what got built.
 
-`burn` answers three questions at once:
+`drain` answers three questions at once:
 
 1. **What did the model do?** Tokens, calls, thinking, and the cache split most people never look at.
 2. **What would that have cost?** Priced per model at current API rates, cache writes and reads
@@ -59,31 +59,31 @@ what got built.
 Python 3.9+. No dependencies.
 
 ```bash
-git clone https://github.com/YOURNAME/burn.git
-cd burn
-python3 burn.py
+git clone https://github.com/YOURNAME/thedrain.git
+cd thedrain
+python3 drain.py
 ```
 
 Optional — run it from anywhere:
 
 ```bash
-echo 'alias burn="python3 ~/burn/burn.py"' >> ~/.zshrc && source ~/.zshrc
+echo 'alias drain="python3 ~/burn/drain.py"' >> ~/.zshrc && source ~/.zshrc
 ```
 
 ## Use
 
 ```bash
-burn                        # today
-burn --date 2026-09-07      # any day
-burn --json                 # machine-readable
-burn --no-git               # skip repository scanning (faster)
-burn --no-anim              # no count-up animation
+drain                       # today
+drain --date 2026-09-07      # any day
+drain --json                 # machine-readable
+drain --no-git               # skip repository scanning (faster)
+drain --no-anim              # no count-up animation
 ```
 
 ## The cache number is the point
 
 Almost everyone reads "877 million tokens" and assumes a catastrophic bill. 98% of that volume is
-**cache reads**, billed at 0.1× the input rate. The single most useful line `burn` prints is how
+**cache reads**, billed at 0.1× the input rate. The single most useful line `drain` prints is how
 much prompt caching saved you — on the day above, $3,877.
 
 If your cache-read share is low, that is a finding: something in your prompt prefix is changing
@@ -106,7 +106,7 @@ Unknown models fall back to Opus-tier pricing and are shown by name, so you can 
 
 ## Privacy
 
-`burn` reads `~/.claude/projects/**/*.jsonl` and your local git history. It makes no network
+`drain` reads `~/.claude/projects/**/*.jsonl` and your local git history. It makes no network
 requests of any kind. Nothing leaves the machine. Read `engine.py` — it is about 120 lines.
 
 ## Accuracy, honestly

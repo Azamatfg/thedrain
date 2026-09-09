@@ -2,7 +2,7 @@
 
 ## Карточка продукта
 
-**Name:** `burn`
+**Name:** `drain`
 
 **Tagline** (60 знаков максимум — считай символы, PH режет молча):
 ```
@@ -47,7 +47,7 @@ around 101,000 lines of Go in four days, and I had no idea what that actually co
 Claude Code shows a session number, never a day, and never connects tokens to what
 got built.
 
-So I wrote burn. It reads the transcripts already on your disk and answers three
+So I wrote thedrain. It reads the transcripts already on your disk and answers three
 questions at once:
 
   what the model did      877,508,082 tokens · 5,598 calls · 32% of output was thinking
@@ -61,11 +61,11 @@ rate. Caching saved $3,877 that day. If your cache-read share is low, that is a 
 finding — something in your prompt prefix is changing between requests and silently
 invalidating it.
 
-The second: if you are on a subscription, you did not pay that $630. burn says so on
+The second: if you are on a subscription, you did not pay that $630. drain says so on
 every run and shows what the day was worth against Pro, Max 5× and Max 20×. That day
 was 3.2 months of Max 20× — delivered in one day.
 
-And because a number alone is not motivating, burn compares your output to code you
+And because a number alone is not motivating, drain compares your output to code you
 already have a feel for. That day was 28% of the Doom engine, with 27,930 lines to go
 before passing it. The first Linux kernel was 10,239 lines — a normal day with an agent
 now exceeds what Torvalds released in 1991.
@@ -76,7 +76,7 @@ race — that is the roadmap.
 No network calls. No account. Reads ~/.claude and your git history, nothing else.
 engine.py is 120 lines; read it before you run it.
 
-  git clone <repo> && cd burn && python3 burn.py
+  git clone <repo> && cd thedrain && python3 drain.py
 
 Curious what your numbers look like — post them.
 ```
@@ -113,9 +113,9 @@ Curious what your numbers look like — post them.
 |---|---|---|
 | Иконка | 240×240 | ❌ нужна |
 | Галерея | 1270×760, первый кадр решает | ❌ нужен скриншот вывода |
-| Демо | GIF работы с анимацией счёта | ❌ записать `burn` без `--no-anim` |
+| Демо | GIF работы с анимацией счёта | ❌ записать `drain` без `--no-anim` |
 
-Для GIF: запустить `burn` в чистом терминале, тёмная тема, шрифт покрупнее.
+Для GIF: запустить `drain` в чистом терминале, тёмная тема, шрифт покрупнее.
 Анимация счёта вверх — это то, ради чего смотрят.
 
 ---

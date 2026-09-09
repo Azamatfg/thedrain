@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""burn — what your day with Claude Code actually cost.
+"""thedrain — what your day with Claude Code actually cost.
 
 Usage:
-    python3 burn.py              today
-    python3 burn.py --date 2026-09-08
-    python3 burn.py --json       machine-readable, no animation
-    python3 burn.py --no-anim    static render
+    python3 drain.py              today
+    python3 drain.py --date 2026-09-08
+    python3 drain.py --json       machine-readable, no animation
+    python3 drain.py --no-anim    static render
 """
 from __future__ import annotations
 
@@ -62,7 +62,7 @@ def next_target(lines: int):
 
 EN = {
  "sub": "what Claude did for you today",
- "tokens": "tokens burned", "cost": "at API rates", "calls": "model calls",
+ "tokens": "tokens drained", "cost": "at API rates", "calls": "model calls",
  "commits": "commits", "lines": "lines written",
  "where": "where the tokens went", "cache_r": "cache reads", "cache_w": "cache writes",
  "out": "model output", "inp": "fresh input",
@@ -84,7 +84,7 @@ EN = {
  "day_max": "one day = {v} months of Claude Max 20× at subscription price",
  "day_pro": "one day = {v} months of Claude Pro at subscription price",
  "rate": "{c} model calls — about {r} per minute over an eight-hour day",
- "foot": "burn · reads only ~/.claude on this machine. Nothing is sent anywhere.",
+ "foot": "drain · reads only ~/.claude on this machine. Nothing is sent anywhere.",
  "doom": "of the Doom 1993 source",
  "leg_over": "today you wrote {v}× {what} — what {who} built{y}",
  "leg_under": "today you wrote {v}% of {what} — what {who} built{y}",
@@ -179,12 +179,12 @@ def render(day: date, tok: dict, git: dict, anim=True):
     if tok.get("missing"):
         print(f"\n  {C.YEL}No Claude Code transcripts found.{C.R}")
         print(f"  {C.GRY}Looked in: {tok['missing']}{C.R}")
-        print(f"  {C.GRY}burn reads the logs Claude Code writes locally. Run Claude Code once,{C.R}")
+        print(f"  {C.GRY}drain reads the logs Claude Code writes locally. Run Claude Code once,{C.R}")
         print(f"  {C.GRY}then try again. Nothing is downloaded and no account is needed.{C.R}\n")
         return
     if not t or t.get("total_tokens", 0) <= 0:
         print(f"\n  {C.GRY}Nothing recorded for {day.isoformat()}.{C.R}")
-        print(f"  {C.GRY}Try another day:  burn --date YYYY-MM-DD{C.R}\n")
+        print(f"  {C.GRY}Try another day:  drain --date YYYY-MM-DD{C.R}\n")
         return
     cost = t.get("cost", 0.0)
     total = t.get("total_tokens", 0.0)
@@ -198,7 +198,7 @@ def render(day: date, tok: dict, git: dict, anim=True):
         saved += m.get("cache_r", 0) * inp * (1 - rmul) / 1e6
 
     print()
-    title = "  B U R N  "
+    title = "  D R A I N  "
     pad = (W - len(title)) // 2
     print(f"{C.DIM}{'─'*pad}{C.R}{C.ORANGE}{C.B}{title}{C.R}{C.DIM}{'─'*(W-pad-len(title))}{C.R}")
     print(f"{C.GRY}  {L['sub']}{C.R}")
