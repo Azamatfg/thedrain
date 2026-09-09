@@ -281,9 +281,26 @@ def main():
     ap.add_argument("--json", action="store_true", help="machine-readable output")
     ap.add_argument("--no-anim", action="store_true")
     ap.add_argument("--no-git", action="store_true", help="skip repository scanning")
+    ap.add_argument("--once", action="store_true",
+                    help="print at most once per day (for shell startup); silent afterwards")
     a = ap.parse_args()
 
     day = datetime.strptime(a.date, "%Y-%m-%d").date() if a.date else date.today()
+
+    if a.once:
+        stamp = os.path.join(os.path.expanduser("~"), ".thedrain", ".last-shown")
+        try:
+            with open(stamp) as f:
+                if f.read().strip() == day.isoformat():
+                    return
+        except OSError:
+            pass
+        try:
+            os.makedirs(os.path.dirname(stamp), exist_ok=True)
+            with open(stamp, "w") as f:
+                f.write(day.isoformat())
+        except OSError:
+            pass
     if not sys.stdout.isatty() or os.environ.get("NO_COLOR"):
         C.off()
 
