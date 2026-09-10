@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/screenshot.png" alt="drain output for a single day" width="820">
+  <img src="assets/demo.gif" alt="drain counting up a single day" width="820">
 </p>
 
 ---
@@ -100,9 +100,30 @@ compares your day to code you already have a feel for, and tells you how far you
 next one.
 
 The roster lives in [`legends.json`](legends.json) — **send a pull request with whoever you want
-to race.** One rule: the line count has to be sourceable. Current entries include the first Linux
-kernel (10,239 lines), Linux 1.0 (176,250), the Apollo 11 guidance computer (~145,000) and git's
-initial commit (1,244).
+to race.** It holds 41 projects spanning five orders of magnitude, and 38 of them were *measured*
+rather than quoted: the source checked out at the tag named in the entry, physical lines counted,
+vendored directories excluded. Physical lines is the unit git reports for the code you wrote,
+which is the only way the comparison stays honest.
+
+Mostly these are **first releases**, because a day of work compares to a beginning, not to a
+mature project:
+
+| | |
+|---|---|
+| 88 | the first commit of tinygrad — George Hotz, 2020 |
+| 592 | the GPT-2 release — OpenAI, 2019 |
+| 1,244 | the first commit of git — Linus Torvalds, 2005 |
+| 5,096 | Keras 0.1 — François Chollet, 2015 |
+| 10,239 | the Linux 0.01 kernel — Linus Torvalds, 1991 |
+| 12,877 | the first commit of llama.cpp — Georgi Gerganov, 2023 |
+| 43,138 | scikit-learn 0.1 — 2010 |
+| 55,048 | the Doom engine — John Carmack, 1993 |
+| 77,710 | PyTorch 0.1 — 2016 |
+| 130,361 | the Apollo 11 guidance computer — Margaret Hamilton's team, 1969 |
+| 210,394 | TensorFlow 0.5 — Google Brain, 2015 |
+| 40,063,856 | the modern Linux kernel — thousands of people over 34 years |
+
+One rule for a pull request: `exact: true` only if you measured it and said where.
 
 ## 💰 Pricing
 
