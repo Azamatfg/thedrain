@@ -82,7 +82,7 @@ what got built.
 
 <img src="assets/gallery-2.png" alt="98% of it was cache" width="820">
 
-Almost everyone reads "877 million tokens" and assumes a catastrophic bill. 98% of that volume is
+Almost everyone reads "878 million tokens" and assumes a catastrophic bill. 98% of that volume is
 **cache reads**, billed at 0.1× the input rate. The single most useful line `drain` prints is how
 much prompt caching saved you — on the day above, **$3,877**.
 
@@ -95,7 +95,7 @@ read yet.**
 
 <img src="assets/gallery-3.png" alt="for scale" width="820">
 
-A number on its own motivates nobody. 877 million of anything is just a big number. So `drain`
+A number on its own motivates nobody. 878 million of anything is just a big number. So `drain`
 compares your day to code you already have a feel for, and tells you how far you are from the
 next one.
 
