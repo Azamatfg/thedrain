@@ -95,7 +95,9 @@ def main():
     first_bar = next((i for i, l in enumerate(lines) if "█" in l), len(lines))
     tail = len(lines)
 
-    plan = []                                  # (upto, ramp_t, bar_t)
+    # The first frame doubles as the poster: galleries that do not autoplay show
+    # frame zero, and a half-drawn screen reads as a broken image there.
+    plan = [(tail, 1.0, 1.0)]                  # (upto, ramp_t, bar_t)
     head_end = max(HEAD) + 1
     for i in range(3):                         # header lands
         plan.append((min(head_end - len(HEAD) + i, head_end), 0.0, 0.0))
