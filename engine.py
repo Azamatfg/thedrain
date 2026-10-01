@@ -119,8 +119,13 @@ def repo_roots(home: Path | None = None) -> list[str]:
     # the union — the sweep finds shallow repositories, the transcripts find the
     # ones the sweep is not allowed to enter.
     try:
-        out = subprocess.run(["find", str(home), "-maxdepth", "4", "-name", ".git",
-                              "-not", "-path", "*/node_modules/*", "-not", "-path", "*/Library/*"],
+        # -prune, not -not -path: find never walks into ~/Library, Photos, Music, the Trash or node_modules.
+        # Walking in (even to drop the results) makes macOS ask "access data from other apps", Photos, Contacts…
+        out = subprocess.run(["find", str(home), "-maxdepth", "4",
+                              "(", "-path", str(home / "Library"), "-o", "-path", str(home / "Pictures"),
+                              "-o", "-path", str(home / "Music"), "-o", "-path", str(home / "Movies"),
+                              "-o", "-path", str(home / ".Trash"), "-o", "-name", "node_modules", ")", "-prune",
+                              "-o", "-name", ".git", "-print"],
                              capture_output=True, text=True, timeout=90)
         roots |= {str(Path(g).parent) for g in out.stdout.splitlines()}
     except Exception:
